@@ -22,7 +22,12 @@ def login():
     """
     Вход в существующую учетную запись.
     """
-    pass
+    login = input('Enter login: ')
+    password = input('Enter password: ')
+    if accounts[login] == password:
+        main_menu()
+    else:
+        print('Wrong login or password')
 
 
 def view_balance(account_id):
