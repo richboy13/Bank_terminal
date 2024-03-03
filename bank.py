@@ -1,11 +1,30 @@
 accounts = {}  # Словарь для хранения информации об учетных записях
 
 
-def main_menu():
+def main_menu(login):
     """
     Отображает главное меню и обрабатывает выбор пользователя.
     """
-    pass
+    print(f'\nWelcome, {login}')
+    is_active = True
+    while is_active:
+        print('\n1. Просмотр баланса')
+        print('2. Депозит средств.')
+        print('3. Перевод средств между счетами')
+        print('4. История транзакций')
+        print('5. Выход')
+        action = int(input('\nВыберите действие (1, 2, ...): '))
+        if action == 1:
+            view_balance(login)
+        if action == 2:
+            deposit(login)
+        if action == 3:
+            transfer(login)
+        if action == 4:
+            transaction_history(login)
+        if action == 4:
+            logout()
+
 
 
 def create_account():
@@ -25,7 +44,7 @@ def login():
     login = input('Enter login: ')
     password = input('Enter password: ')
     if accounts[login] == password:
-        main_menu()
+        main_menu(login)
     else:
         print('Wrong login or password')
 
