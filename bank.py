@@ -12,7 +12,10 @@ def create_account():
     """
     Создает новую учетную запись.
     """
-    pass
+    global accounts
+    login = input('Enter login: ')
+    password = input('Enter password: ')
+    accounts[login] = password
 
 
 def login():
