@@ -14,10 +14,11 @@ def main_menu():
         is_active = login()
         while is_active:
             print('\n1. Просмотр баланса')
-            print('2. Депозит средств.')
-            print('3. Перевод средств между счетами')
-            print('4. История транзакций')
-            print('5. Выход')
+            print('\n2. Пополнить баланс')
+            print('3. Депозит средств.')
+            print('4. Перевод средств между счетами')
+            print('5. История транзакций')
+            print('6. Выход')
             action = int(input('\nВыберите действие (1, 2, ...): '))
             if action == 1:
                 view_balance(login)
@@ -40,6 +41,7 @@ def create_account():
     login = input('Enter login: ')
     password = input('Enter password: ')
     accounts[login] = password
+
     print(len(accounts))
 
 
@@ -50,7 +52,7 @@ def login():
     _login = input('Enter login: ')
     password = input('Enter password: ')
     if accounts[_login] == password:
-        main_menu(_login)
+        main_menu()
         return True
     else:
         print('Wrong login or password')
