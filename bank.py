@@ -1,4 +1,4 @@
-accounts = {}  # Словарь для хранения информации об учетных записях
+import json
 
 
 def main_menu():
@@ -8,14 +8,20 @@ def main_menu():
     pass
 
 
-def create_account():
+def create_account(data={}):
     """
     Создает новую учетную запись.
     """
-    global accounts
+    accounts = {}
     login = input('Enter login: ')
     password = input('Enter password: ')
     accounts[login] = password
+    accounts['balance'] = 0
+    accounts['deposit'] = 0
+    accounts['history'] = ""
+    data['bank_data']= [accounts]
+    with open('data.json', 'w') as file:
+        json.dump(data, file)
 
 
 def login():
