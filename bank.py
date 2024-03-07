@@ -1,10 +1,4 @@
-<<<<<<< HEAD
 import json
-
-=======
-accounts = {}  # Словарь для хранения информации об учетных записях
-_login = "zero"
->>>>>>> feature/main_menu
 
 def main_menu():
     """
