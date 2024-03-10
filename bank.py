@@ -21,14 +21,18 @@ def main_menu():
             action = int(input('\nВыберите действие (1, 2, ...): '))
             if action == 1:
                 view_balance(login)
-            if action == 2:
+            elif action == 2:
                 deposit(login)
-            if action == 3:
+            elif action == 3:
                 transfer(login)
-            if action == 4:
+            elif action == 4:
                 transaction_history(login)
-            if action == 4:
+            elif action == 5:
                 logout()
+            elif action == 6:
+                is_active = False
+            else:
+                print('Некорректный выбор. Пожалуйста, выберите снова.')
 
 
 
@@ -54,14 +58,16 @@ def login():
     """
     Вход в существующую учетную запись.
     """
+    with open('data.json', 'r') as file:
+        bd = json.load(file)
     _login = input('Enter login: ')
     password = input('Enter password: ')
-    if accounts[_login] == password:
-        main_menu()
-        return True
-    else:
-        print('Wrong login or password')
-        return False
+    for account in bd.get('bank_data', []):
+        if _login in account and account[_login] == password:
+            print('Login and password are correct')
+            return True
+    print('Wrong login or password')
+    return False
 
 
 
