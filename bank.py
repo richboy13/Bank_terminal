@@ -79,7 +79,8 @@ def view_balance(_login):
         bd = json.load(file)
     _login, account = login()
     for account in bd.get('bank_data', []):
-        print(f'Баланс для пользователя {login}: {account[_login]["balance"]}')
+        balance = str(account[_login]["balance"])
+        print(f'Баланс для пользователя {login}: {balance}')
 
 
 
