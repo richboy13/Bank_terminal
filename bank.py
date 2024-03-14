@@ -65,7 +65,7 @@ def login():
     for account in bd.get('bank_data', []):
         if _login in account and account[_login] == password:
             print('Login and password are correct')
-            return _login,
+            return _login, account
     print('Wrong login or password')
     return False
 
