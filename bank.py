@@ -19,7 +19,7 @@ def main_menu():
             print('6. Выход')
             action = int(input('\nВыберите действие (1, 2, ...): '))
             if action == 1:
-                view_balance(login)
+                view_balance(login, account)
             if action == 2:
                 deposit(login)
             if action == 3:
