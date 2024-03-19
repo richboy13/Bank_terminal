@@ -12,7 +12,7 @@ def main_menu():
     if action == 2:
         login_result = login()
         if login_result:
-            _login, account = login_result
+            _login = login_result
             is_active = True
             while is_active:
                 print('\n1. Просмотр баланса')
@@ -23,34 +23,40 @@ def main_menu():
                 print('6. Выход')
                 action = int(input('\nВыберите действие (1, 2, ...): '))
                 if action == 1:
-                    view_balance(_login, account)
+                    view_balance(_login)
                 if action == 2:
-                    deposit(login)
+                    pass
                 if action == 3:
+                    deposit(login)
+                if action == 4:
                     transfer(login)
-                if action == 4:
+                if action ==5:
                     transaction_history(login)
-                if action == 4:
+                if action == 6:
                     logout()
 
 
 
-def create_account(data={}):
+def create_account():
     """
     Создает новую учетную запись.
     """
-    accounts = {}
+    with open('data.json', 'r') as file:
+        data = json.load(file)
     login = input('Enter login: ')
     password = input('Enter password: ')
-    accounts[login] = password
-    accounts['balance'] = 0
-    accounts['deposit'] = 0
-    accounts['history'] = ""
-    data['bank_data']= [accounts]
+    new_account = {
+        "login": login,
+        "password": password,
+        "balance": 0,
+        "deposit": 0,
+        "history": ""
+    }
+    data.setdefault('bank_data', []).append(new_account)
     with open('data.json', 'w') as file:
         json.dump(data, file)
 
-    print(len(accounts))
+    print('Account created successfully.')
 
 
 def login():
@@ -62,20 +68,28 @@ def login():
     _login = input('Enter login: ')
     password = input('Enter password: ')
     for account in bd.get('bank_data', []):
-        if _login in account and account[_login] == password:
+        if account["login"] == _login and account["password"] == password:
             print('Login and password are correct')
-            return _login, account
+            return _login
     print('Wrong login or password')
     return False
 
 
 
-def view_balance(login, account):
+
+def view_balance(login):
     """
     Показывает текущий баланс учетной записи.
     """
-    balance = account[login]['balance']
-    print(f'Баланс для пользователя {login}: {balance}')
+    with open('data.json', 'r') as file:
+        data = json.load(file)
+    for acc in data.get('bank_data', []):
+        if acc["login"] == login:
+            balance = acc['balance']
+            print(f'Баланс для пользователя {login}: {balance}')
+            return
+    print(f'Пользователь {login} не найден.')
+
 
 
 
@@ -83,7 +97,14 @@ def deposit(account_id):
     """
     Депозит средств на счет.
     """
-    pass
+    with open('data.json', 'r') as file:
+        data = json.load(file)
+    for acc in data.get('bank_data', []):
+        if acc["login"] == login:
+            balance = acc['deposit']
+            print(f'Депозит для пользователя {login}: {balance}')
+            return
+    print(f'Пользователь {login} не найден.'
 
 
 def transfer(account_id):

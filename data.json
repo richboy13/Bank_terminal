@@ -1,3 +1,18 @@
-{"bank_data": [
-  {"nail1": "111", "balance": 0, "deposit": 0, "history": ""}
-]}
+{
+  "bank_data": [
+    {
+      "login": "nail1",
+      "password": "111",
+      "balance": 0,
+      "deposit": 0,
+      "history": ""
+    },
+    {
+      "login": "a",
+      "password": "a",
+      "balance": 1111,
+      "deposit": 0,
+      "history": ""
+    }
+  ]
+}
