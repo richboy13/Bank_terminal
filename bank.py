@@ -12,7 +12,8 @@ def main_menu():
     if action == 2:
         login_result = login()
         if login_result:
-            is_active, account = login_result
+            login, account = login_result
+            is_active = True
             while is_active:
                 print('\n1. Просмотр баланса')
                 print('\n2. Пополнить баланс')
@@ -22,7 +23,7 @@ def main_menu():
                 print('6. Выход')
                 action = int(input('\nВыберите действие (1, 2, ...): '))
                 if action == 1:
-                    view_balance(login_result)
+                    view_balance(login, account)
                 if action == 2:
                     deposit(login)
                 if action == 3:
