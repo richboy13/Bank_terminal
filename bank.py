@@ -66,8 +66,9 @@ def login():
         if _login in account and account[_login] == password:
             print('Login and password are correct')
             return _login, account
-    print('Wrong login or password')
-    return False
+        else:
+            print('Wrong login or password')
+            return False
 
 
 
