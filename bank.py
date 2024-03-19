@@ -71,16 +71,12 @@ def login():
 
 
 
-def view_balance(_login):
+def view_balance(login, account):
     """
     Показывает текущий баланс учетной записи.
     """
-    with open('data.json', 'r') as file:
-        bd = json.load(file)
-    _login, account = login()
-    for account in bd.get('bank_data', []):
-        balance = int(account[_login]["balance"])
-        print(f'Баланс для пользователя {login}: {balance}')
+    balance = account[login]['balance']
+    print(f'Баланс для пользователя {login}: {balance}')
 
 
 
