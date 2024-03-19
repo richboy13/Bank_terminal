@@ -10,29 +10,27 @@ def main_menu():
     if action == 1:
         create_account()
     if action == 2:
-        is_active = login()
-        while is_active:
-            print('\n1. Просмотр баланса')
-            print('\n2. Пополнить баланс')
-            print('3. Депозит средств.')
-            print('4. Перевод средств между счетами')
-            print('5. История транзакций')
-            print('6. Выход')
-            action = int(input('\nВыберите действие (1, 2, ...): '))
-            if action == 1:
-                view_balance(login, account)
-            elif action == 2:
-                deposit(login)
-            elif action == 3:
-                transfer(login)
-            elif action == 4:
-                transaction_history(login)
-            elif action == 5:
-                logout()
-            elif action == 6:
-                is_active = False
-            else:
-                print('Некорректный выбор. Пожалуйста, выберите снова.')
+        login_result = login()
+        if login_result:
+            is_active, account = login_result
+            while is_active:
+                print('\n1. Просмотр баланса')
+                print('\n2. Пополнить баланс')
+                print('3. Депозит средств.')
+                print('4. Перевод средств между счетами')
+                print('5. История транзакций')
+                print('6. Выход')
+                action = int(input('\nВыберите действие (1, 2, ...): '))
+                if action == 1:
+                    view_balance(login_result)
+                if action == 2:
+                    deposit(login)
+                if action == 3:
+                    transfer(login)
+                if action == 4:
+                    transaction_history(login)
+                if action == 4:
+                    logout()
 
 
 
