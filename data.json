@@ -1,18 +1,23 @@
 {
-  "bank_data": [
-    {
-      "login": "nail1",
-      "password": "111",
-      "balance": 0,
-      "deposit": 0,
-      "history": ""
-    },
-    {
-      "login": "a",
-      "password": "a",
-      "balance": 1111,
-      "deposit": 0,
-      "history": ""
-    }
-  ]
+    "bank_data": [
+        {
+            "login": "nail1",
+            "password": "111",
+            "balance": 0,
+            "deposit": 0,
+            "history": []
+        },
+        {
+            "login": "a",
+            "password": "a",
+            "balance": 45000,
+            "deposit": 135000,
+            "history": [
+                "\u0412\u044b \u043f\u043e\u043f\u043e\u043b\u043d\u0438\u043b\u0438 \u0431\u0430\u043b\u0430\u043d\u0441 \u043d\u0430 \u0441\u0443\u043c\u043c\u0443 20000.",
+                "\u0412\u044b \u043f\u043e\u043f\u043e\u043b\u043d\u0438\u043b\u0438 \u0431\u0430\u043b\u0430\u043d\u0441 \u043d\u0430 \u0441\u0443\u043c\u043c\u0443 20000.",
+                "\u0412\u044b \u043f\u043e\u043f\u043e\u043b\u043d\u0438\u043b\u0438 \u0431\u0430\u043b\u0430\u043d\u0441 \u043d\u0430 \u0441\u0443\u043c\u043c\u0443 -20000.",
+                "\u0412\u044b \u043f\u0435\u0440\u0435\u0432\u0435\u043b\u0438 \u0441 \u0431\u0430\u043b\u0430\u043d\u0441\u0430 \u043d\u0430 \u0434\u0435\u043f\u043e\u0437\u0438\u0442 \u0441\u0443\u043c\u043c\u0443 25000."
+            ]
+        }
+    ]
 }

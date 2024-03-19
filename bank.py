@@ -25,15 +25,15 @@ def main_menu():
                 if action == 1:
                     view_balance(_login)
                 if action == 2:
-                    pass
+                    add_to_balance(_login)
                 if action == 3:
-                    deposit(login)
+                    deposit(_login)
                 if action == 4:
-                    transfer(login)
+                    transfer(_login)
                 if action ==5:
-                    transaction_history(login)
+                    transaction_history(_login)
                 if action == 6:
-                    logout()
+                    is_active  = logout()
 
 
 
@@ -50,11 +50,11 @@ def create_account():
         "password": password,
         "balance": 0,
         "deposit": 0,
-        "history": ""
+        "history": []
     }
     data.setdefault('bank_data', []).append(new_account)
     with open('data.json', 'w') as file:
-        json.dump(data, file)
+        json.dump(data, file, indent=4)
 
     print('Account created successfully.')
 
@@ -91,9 +91,33 @@ def view_balance(login):
     print(f'Пользователь {login} не найден.')
 
 
+def add_to_balance(login):
+    """
+    Пополнить баланс
+    """
+    with open('data.json', 'r') as file:
+        db = json.load(file)
+    for acc in db.get('bank_data', []):
+        if acc["login"] == login:
+            balance = acc['balance']
+            history = acc.get("history", [])
+            print('Пополнение баланса.')
+            sum = int(input('\nНапишите на какую сумму желаете пополнить баланс: '))
+            balance += sum
+            history.append(f'Вы пополнили баланс на сумму {sum}.')
+
+            print(f'Вы пополнили баланс на сумму {sum}.')
+            print(f'Ваш баланс составляет {balance}.')
+
+            acc['balance'] = balance
+            acc['history'] = history
+            break
+    with open('data.json', 'w') as file:
+        json.dump(db, file, indent=4)
 
 
-def deposit(account_id):
+
+def deposit(login):
     """
     Депозит средств на счет.
     """
@@ -101,31 +125,84 @@ def deposit(account_id):
         data = json.load(file)
     for acc in data.get('bank_data', []):
         if acc["login"] == login:
-            balance = acc['deposit']
-            print(f'Депозит для пользователя {login}: {balance}')
+            deposit = acc['deposit']
+            print(f'Депозит для пользователя {login}: {deposit}')
             return
-    print(f'Пользователь {login} не найден.'
+    print(f'Пользователь {login} не найден.')
 
 
-def transfer(account_id):
+def transfer(login):
     """
     Перевод средств между счетами.
     """
-    pass
+    with open('data.json', 'r') as file:
+        db = json.load(file)
 
+    for acc in db.get('bank_data', []):
+        if acc["login"] == login:
+            balance = acc['balance']
+            _deposit = acc['deposit']
+            history = acc.get("history", [])
 
-def transaction_history(account_id):
+            print('\n1. Перевод средств между счетами. Выберите действие:')
+            print('\n1. Перевод средств с баланса на депозит.')
+            print('2. Перевод средств с депозита на баланс.')
+            action = int(input('\nВыберите действие (1 или 2): '))
+
+            if action == 1:
+                sum = int(input('Напишите сумму перевода: '))
+                if sum <= balance:
+                    _deposit += sum
+                    balance -= sum
+                    history.append(f'Вы перевели с баланса на депозит сумму {sum}.')
+                    print(f'Ваш баланс составляет: {balance}')
+                    print(f'Ваш депозит составляет: {_deposit}')
+                else:
+                    print('Недостаточно средств на депозите.')
+
+            elif action == 2:
+                sum = int(input('Напишите сумму перевода: '))
+                if sum <= _deposit:
+                    balance += sum
+                    _deposit -= sum
+                    history.append(f'Вы перевели с депозита на баланс сумму {sum}.')
+                    print(f'Ваш баланс составляет: {balance}')
+                    print(f'Ваш депозит составляет: {_deposit}')
+                else:
+                    print('Недостаточно средств на депозите.')
+
+            for acc in db.get('bank_data', []):
+                if acc["login"] == login:
+                    acc['balance'] = balance
+                    acc['deposit'] = _deposit
+                    acc['history'] = history
+
+    with open('data.json', 'w') as file:
+        json.dump(db, file, indent=4)
+
+def transaction_history(_login):
     """
     Показывает историю транзакций по счету.
     """
-    pass
+    with open('data.json', 'r') as file:
+        data = json.load(file)
+    for acc in data.get('bank_data', []):
+        if acc["login"] == _login:
+            history = acc.get("history", [])
+            if history:
+                print(f"История транзакций для пользователя {_login}:")
+                print(history)
+            else:
+                print(f"У пользователя {_login} нет истории транзакций.")
+            return
 
 
 def logout():
     """
     Выход из учетной записи.
     """
-    pass
+    print("Выход из учетной записи.")
+    return False
 
 
 if __name__ == "__main__":
